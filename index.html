@@ -1,21 +1,21 @@
 <!doctype html>
-<html lang="en" data-theme="sepia" data-skin="press">
+<html lang="en" data-theme="lilac" data-skin="press">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Appearance pre-paint: resolve the saved theme (shared deets.theme key,
          retired-id migration, OS light/dark fallback) before the stylesheet
-         applies, so a launch never flashes the wrong theme. theme.ts owns the
-         same logic and re-applies it on load — keep the RETIRED map and the
-         default (Sepia — DeetsRGB's own choice, not the OS light/dark pair the
-         rest of the family uses) in sync. Press is the only skin, so data-skin
-         is fixed above. -->
+         applies, so a dark-mode launch never flashes Lilac. theme.ts owns the
+         same logic and re-applies it on load — keep the RETIRED map in sync.
+         Press is the only skin, so data-skin is fixed above. -->
     <script>
       (function () {
         var R = { fairy: "lilac", glade: "green", hornet: "black-yellow", viper: "black-red" };
+        var dark = false;
+        try { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; } catch (e) {}
         var saved = null;
         try { saved = localStorage.getItem("deets.theme"); } catch (e) {}
-        document.documentElement.setAttribute("data-theme", saved ? (R[saved] || saved) : "sepia");
+        document.documentElement.setAttribute("data-theme", saved ? (R[saved] || saved) : (dark ? "black-red" : "lilac"));
       })();
     </script>
     <link rel="stylesheet" href="/src/styles.css" />

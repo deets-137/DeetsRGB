@@ -18,12 +18,19 @@ const RETIRED: Record<string, ThemeName> = {
   viper: "black-red",
 };
 
-// No saved choice: Sepia. DeetsRGB deviates from the family's OS light/dark
-// default (DeetsMusic lands on Lilac or Black & Red) — a tray panel that pops
-// over whatever is on screen reads best as one fixed, warm stock. Kept in
-// sync with the pre-paint script in index.html.
+// No saved choice: follow the OS light/dark preference, landing on Lilac
+// (light) or Black & Red (dark) — the same default as the rest of the family.
+// Kept in sync with the pre-paint script in index.html.
 function defaultTheme(): ThemeName {
-  return "sepia";
+  return prefersDark() ? "black-red" : "lilac";
+}
+
+function prefersDark(): boolean {
+  try {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch {
+    return false;
+  }
 }
 
 export function applyTheme(name: ThemeName): void {
