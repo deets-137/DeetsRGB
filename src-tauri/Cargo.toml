@@ -1,0 +1,22 @@
+[package]
+name = "deetsrgb"
+version = "0.1.0"
+description = "Tray lighting control for the Deets desk: a Sinowealth keyboard and a Razer DeathAdder Elite."
+authors = ["Aditya Sundaram"]
+edition = "2021"
+
+[lib]
+# The `_lib` suffix keeps the lib name unique against the bin name on Windows
+# (same reason as DeetsMusic; see rust-lang/cargo#8519).
+name = "deetsrgb_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Raw HID feature reports to both devices. No vendor SDKs, no kernel drivers.
+hidapi = "2"
